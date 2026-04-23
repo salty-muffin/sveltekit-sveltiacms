@@ -1,9 +1,9 @@
-# sveltekit-decapcms
+# sveltekit-sveltiacms
 
-A base repo for a static site with decapcms (formerly known as netlifycms) & sharp image optimization.
+A base repo for a static site with Sveltia CMS & sharp image optimization.
 
 It includes a component for rendering the markdown to html with a custom image component. the image component gets a range of options (an array of sizes, formats, quality, etc.). each page that uses decapcms for content needs an endpoint in which the markdown is processed.
 
 Look to `src/routes/post/[slug]/+page.server.ts` to see how to set up an endpoint and to `src/routes/post/[slug]/+page.svelte` to see how to set up the corresponding page. Look to `src/lib/types.ts` to get information about the image options.
 
-For a inspirations on how to set up decapcms look to `static/admin/config.yml`.
+For a inspirations on how to set up Sveltia CMS look to `static/admin/config.yml`.
