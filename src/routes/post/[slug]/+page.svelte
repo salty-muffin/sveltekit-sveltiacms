@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Image from '$lib/components/image.svelte';
+	// import Image from '$lib/components/image.svelte';
 	import Markdown from '$lib/components/markdown.svelte';
 
 	import type { PageData } from './$types';

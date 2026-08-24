@@ -21,7 +21,7 @@
 </script>
 
 {#if hast && (hast.type === 'element' || hast.type === 'root')}
-	{#each hast.children as child}
+	{#each hast.children as child (child)}
 		{#if child.type === 'element'}
 			{#if child.tagName === 'img' && child.properties.src}
 				<Image
@@ -32,6 +32,7 @@
 					options={imageOptions}
 				/>
 			{:else if child.tagName === 'a'}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a href={str(child.properties.href)}><Markdown hast={child} {imageOptions} /></a>
 			{:else if child.tagName === 'br'}
 				<br />

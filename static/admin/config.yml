@@ -15,7 +15,7 @@ collections:
   - name: posts # used in routes, e.g. /admin/collections/blog
     identifier_field: title
     label: Posts # used in the ui
-    label_singular: Post<
+    label_singular: Post
     folder: src/content/posts # path to the folder where the documents are stored
     create: true # allow users to create new documents in this collection
     slug: '{{slug}}' # filename template, e.g. YYYY-MM-DD-title.md
