@@ -26,7 +26,11 @@
 	{#each hast.children as child (child)}
 		{#if child.type === 'element'}
 			{#if child.tagName === 'img' && child.properties.src}
-				<img src={assetUrl(str(child.properties.src) ?? '')} alt={str(child.properties.alt)} />
+				<img
+					class="markdown-preview"
+					src={assetUrl(str(child.properties.src) ?? '')}
+					alt={str(child.properties.alt)}
+				/>
 			{:else if child.tagName === 'a'}
 				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a href={str(child.properties.href)}><Markdown hast={child} {assetUrl} /></a>
