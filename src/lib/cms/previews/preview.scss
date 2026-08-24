@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '$lib/styles/variables' as *;
 
 // Styles for the preview pane. Svelte's scoped `<style>` blocks end up in the app's stylesheet,
 // which the preview iframe does not load, so anything the preview components need has to live in
