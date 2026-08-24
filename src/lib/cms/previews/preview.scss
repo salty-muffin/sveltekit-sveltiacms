@@ -1,0 +1,18 @@
+@use '../../styles/variables' as *;
+
+// Styles for the preview pane. Svelte's scoped `<style>` blocks end up in the app's stylesheet,
+// which the preview iframe does not load, so anything the preview components need has to live in
+// a plain stylesheet that is registered with `CMS.registerPreviewStyle()`.
+
+body {
+	margin: 0;
+	padding: 1rem;
+	font-family: system-ui, sans-serif;
+	line-height: 1.5;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
