@@ -33,7 +33,7 @@ export const sveltePreviewTemplate = <Data extends object>(
 	interface Instance {
 		props: CustomPreviewTemplateProps;
 		container: HTMLElement | null;
-		state: { data: Data } | null;
+		store: { data: Data } | null;
 		component: Record<string, unknown> | null;
 		setContainer: (element: HTMLElement | null) => void;
 	}
@@ -46,24 +46,24 @@ export const sveltePreviewTemplate = <Data extends object>(
 		componentDidMount(this: Instance) {
 			if (!this.container) return;
 
-			const state = $state({ data: getData(this.props) });
+			const store = $state({ data: getData(this.props) });
 
-			this.state = state;
-			this.component = mount(Preview, { target: this.container, props: state });
+			this.store = store;
+			this.component = mount(Preview, { target: this.container, props: store });
 		},
 
 		componentDidUpdate(this: Instance) {
 			// the entry editor sends an update on every keystroke, in any field. merging key by key
 			// instead of replacing `data` means unchanged keys keep their value, and a `$derived` in
 			// the preview component only recomputes when the key it actually reads has changed
-			if (this.state) Object.assign(this.state.data, getData(this.props));
+			if (this.store) Object.assign(this.store.data, getData(this.props));
 		},
 
 		componentWillUnmount(this: Instance) {
 			if (this.component) unmount(this.component);
 
 			this.component = null;
-			this.state = null;
+			this.store = null;
 		},
 
 		render(this: Instance) {
