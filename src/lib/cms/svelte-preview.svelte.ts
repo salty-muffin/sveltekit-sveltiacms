@@ -17,9 +17,10 @@ import type { CustomPreviewTemplate, CustomPreviewTemplateProps } from '@sveltia
  *
  * @param Preview Svelte component rendering the preview.
  * @param getData Maps the props React hands us — an Immutable entry plus a few helpers — onto the
- * plain, typed data the Svelte component wants.
+ * plain, typed data the Svelte component wants. It has to return the same set of keys every time,
+ * because updates are merged into the existing data (see `componentDidUpdate`).
  */
-export const sveltePreviewTemplate = <Data>(
+export const sveltePreviewTemplate = <Data extends object>(
 	Preview: Component<{ data: Data }>,
 	getData: (props: CustomPreviewTemplateProps) => Data
 ): CustomPreviewTemplate => {
@@ -52,7 +53,10 @@ export const sveltePreviewTemplate = <Data>(
 		},
 
 		componentDidUpdate(this: Instance) {
-			if (this.state) this.state.data = getData(this.props);
+			// the entry editor sends an update on every keystroke, in any field. merging key by key
+			// instead of replacing `data` means unchanged keys keep their value, and a `$derived` in
+			// the preview component only recomputes when the key it actually reads has changed
+			if (this.state) Object.assign(this.state.data, getData(this.props));
 		},
 
 		componentWillUnmount(this: Instance) {
