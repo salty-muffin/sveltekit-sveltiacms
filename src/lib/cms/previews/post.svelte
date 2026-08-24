@@ -5,6 +5,8 @@
 		optional: string;
 		image: string;
 		body: string;
+		/** Resolves an entry image path to a URL the preview iframe can load. */
+		assetUrl: (path: string) => string;
 	}
 </script>
 
@@ -12,19 +14,12 @@
 	import { fromMarkdown } from 'mdast-util-from-markdown';
 	import { toHast } from 'mdast-util-to-hast';
 
-	import Markdown from '$lib/components/markdown.svelte';
-
-	import type { ImageOptions } from '$lib/types';
+	import MarkdownPreview from './components/markdown.svelte';
 
 	let { data }: { data: PostPreviewData } = $props();
 
-	// same options as `src/routes/post/[slug]/+page.svelte`, so the preview matches the real page
-	const imageOptions: ImageOptions = {
-		sizes: [{ width: 400, maxWidth: 400 }, { width: 640 }]
-	};
-
-	// the sharp based pipeline in `$lib/markdown` is server only, so the preview parses the
-	// markdown in the browser and leaves the image dimensions to the image endpoint
+	// the sharp based pipeline in `$lib/markdown` is server only, so the preview parses the markdown
+	// in the browser. only `data.body` is read here, so editing another field does not reparse
 	const body = $derived(toHast(fromMarkdown(data.body)));
 </script>
 
@@ -36,8 +31,8 @@
 	{/if}
 
 	{#if data.image}
-		<img src={data.image} alt="" />
+		<img src={data.assetUrl(data.image)} alt="" />
 	{/if}
 
-	<Markdown hast={body} {imageOptions} />
+	<MarkdownPreview hast={body} assetUrl={data.assetUrl} />
 </article>

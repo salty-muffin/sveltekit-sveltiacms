@@ -15,8 +15,11 @@ explicitly, instead of being pulled from a CDN by a static `admin/index.html`:
   config file.
 - `src/lib/cms/previews/` holds the custom preview templates. `CMS.registerPreviewTemplate()`
   only takes React components, so `src/lib/cms/svelte-preview.svelte.ts` wraps a Svelte component
-  in one — which means previews can reuse the site's own components, as
-  `src/lib/cms/previews/post.svelte` does with `$lib/components/markdown.svelte`.
+  in one, which means previews are written in Svelte and can reuse the site's own components.
+- `src/lib/cms/previews/markdown.svelte` is the preview counterpart of
+  `$lib/components/markdown.svelte`. It renders the same hast, but resolves images with the CMS's
+  `getAsset()` rather than through `$lib/components/image.svelte`, so images that have been
+  uploaded but not committed yet show up in the preview.
 - Preview styles have to be registered with `CMS.registerPreviewStyle()`
   (`src/lib/cms/previews/preview.scss`), because the preview iframe does not load the app's
   stylesheet and Svelte's scoped `<style>` blocks therefore never reach it.

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Image from '$lib/components/image.svelte';
-	import Markdown from '$lib/components/markdown.svelte';
+	import Markdown from './markdown.svelte';
 
 	import type { Nodes, Properties } from 'hast';
 	import type { ImageOptions } from '$lib/types';

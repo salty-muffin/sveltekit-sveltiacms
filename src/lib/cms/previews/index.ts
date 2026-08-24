@@ -17,17 +17,16 @@ export const registerPreviews = () => {
 
 	registerPreviewTemplate(
 		'posts',
-		sveltePreviewTemplate(PostPreview, ({ entry, getAsset }) => {
-			const image = field(entry, 'image');
-
-			return {
-				title: field(entry, 'title'),
-				description: field(entry, 'description'),
-				optional: field(entry, 'optional'),
-				// unsaved uploads only exist as a blob, so the asset has to be resolved by the CMS
-				image: image ? (getAsset(image)?.url ?? '') : '',
-				body: field(entry, 'body')
-			};
-		})
+		sveltePreviewTemplate(PostPreview, ({ entry, getAsset }) => ({
+			title: field(entry, 'title'),
+			description: field(entry, 'description'),
+			optional: field(entry, 'optional'),
+			image: field(entry, 'image'),
+			body: field(entry, 'body'),
+			// an image that has been uploaded but not committed yet only exists as a blob, so the CMS
+			// has to resolve it. an image the CMS does not know falls back to its path, which the
+			// `/images/` endpoint serves
+			assetUrl: (path: string) => getAsset(path)?.url ?? path
+		}))
 	);
 };
