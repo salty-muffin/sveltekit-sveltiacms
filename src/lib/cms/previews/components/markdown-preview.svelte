@@ -20,7 +20,7 @@
 		{#if child.type === 'element'}
 			{#if child.tagName === 'img' && child.properties.src}
 				<img
-					class="markdown-preview"
+					class="preview__markdown-image"
 					src={assetUrl(str(child.properties.src) ?? '')}
 					alt={str(child.properties.alt)}
 				/>

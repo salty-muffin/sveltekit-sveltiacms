@@ -14,6 +14,7 @@
 	import { fromMarkdown } from 'mdast-util-from-markdown';
 	import { toHast } from 'mdast-util-to-hast';
 
+	import PreviewWrapper from './components/preview-wrapper.svelte';
 	import MarkdownPreview from './components/markdown-preview.svelte';
 
 	let { data }: { data: PostPreviewData } = $props();
@@ -23,7 +24,7 @@
 	const body = $derived(toHast(fromMarkdown(data.body)));
 </script>
 
-<article>
+<PreviewWrapper>
 	<h1>{data.title}</h1>
 	<h2>{data.description}</h2>
 	{#if data.optional}
@@ -35,4 +36,4 @@
 	{/if}
 
 	<MarkdownPreview hast={body} assetUrl={data.assetUrl} />
-</article>
+</PreviewWrapper>
