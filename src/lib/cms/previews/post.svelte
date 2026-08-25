@@ -14,7 +14,7 @@
 	import { fromMarkdown } from 'mdast-util-from-markdown';
 	import { toHast } from 'mdast-util-to-hast';
 
-	import MarkdownPreview from './components/markdown.svelte';
+	import MarkdownPreview from './components/markdown-preview.svelte';
 
 	let { data }: { data: PostPreviewData } = $props();
 
