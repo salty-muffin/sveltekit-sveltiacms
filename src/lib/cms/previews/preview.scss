@@ -24,6 +24,58 @@ img.preview__markdown-image {
 	margin: 1rem;
 }
 
+.preview__controls {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	margin-bottom: 0.5rem;
+
+	button {
+		width: 1.75rem;
+		height: 1.75rem;
+		border: 1px solid #000;
+		background: #fff;
+		font: inherit;
+		line-height: 1;
+		cursor: pointer;
+
+		&:disabled {
+			opacity: 0.35;
+			cursor: default;
+		}
+	}
+}
+
+.preview__zoom,
+.preview__note {
+	font-size: 0.8125rem;
+	opacity: 0.6;
+}
+
+.preview__zoom {
+	margin-left: 0.25rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.preview__note {
+	display: block;
+	margin-bottom: 0.5rem;
+}
+
+// the frame is laid out wider or narrower than the space it gets and scaled back to fit, so it is
+// taken out of flow and the viewport is given the scaled height by the component
+.preview__viewport {
+	position: relative;
+	overflow: hidden;
+}
+
 .preview__frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: top left;
 	border: 1px solid #000;
+	// lets `@container` rules inside the preview react to the simulated width. `@media` rules
+	// cannot: they match the CMS iframe's viewport, which the zoom does not change
+	container-type: inline-size;
 }
