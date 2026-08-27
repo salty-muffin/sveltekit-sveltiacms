@@ -62,18 +62,10 @@ img.preview__markdown-image {
 	margin-bottom: 0.5rem;
 }
 
-// the frame is laid out wider or narrower than the space it gets and scaled back to fit, so it is
-// taken out of flow and the viewport is given the scaled height by the component
-.preview__viewport {
-	position: relative;
-	overflow: hidden;
-}
-
+// `zoom` — unlike `transform: scale()` — is a layout effect: the frame is laid out at its own
+// width divided by the zoom factor and still occupies exactly the space it is given, so nothing
+// here has to measure or compensate for it
 .preview__frame {
-	position: absolute;
-	top: 0;
-	left: 0;
-	transform-origin: top left;
 	border: 1px solid #000;
 	// lets `@container` rules inside the preview react to the simulated width. `@media` rules
 	// cannot: they match the CMS iframe's viewport, which the zoom does not change
