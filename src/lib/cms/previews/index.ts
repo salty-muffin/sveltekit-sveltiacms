@@ -2,7 +2,8 @@ import { registerPreviewStyle, registerPreviewTemplate } from '@sveltia/cms';
 
 import { sveltePreviewTemplate } from '$lib/cms/svelte-preview.svelte';
 import PostPreview from './post.svelte';
-import previewStyles from './preview.scss?inline';
+import previewStyles from './styles/preview.scss?inline';
+import zoomStyles from './styles/zoom.scss?inline';
 
 /** Read a field off the Immutable entry as a string. */
 const field = (entry: { getIn: (path: string[]) => unknown }, name: string): string => {
@@ -14,6 +15,7 @@ const field = (entry: { getIn: (path: string[]) => unknown }, name: string): str
 /** Register every custom preview template and stylesheet. Call this before `CMS.init()`. */
 export const registerPreviews = () => {
 	registerPreviewStyle(previewStyles, { raw: true });
+	registerPreviewStyle(zoomStyles, { raw: true });
 
 	registerPreviewTemplate(
 		'posts',
