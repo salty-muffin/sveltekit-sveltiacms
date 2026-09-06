@@ -40,7 +40,7 @@ export const getImageProperties = async (path: string): Promise<Image> => {
 	let width = undefined;
 	let height = undefined;
 	try {
-		const metadata = await sharp(`src/${path.replace(/^\/+/, '')}`).metadata();
+		const metadata = await sharp(file).metadata();
 		width = !metadata.orientation || metadata.orientation <= 4 ? metadata.width : metadata.height;
 		height = !metadata.orientation || metadata.orientation <= 4 ? metadata.height : metadata.width;
 	} catch {
